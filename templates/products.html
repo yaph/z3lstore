@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% set title = 'Cool Shirts and Stuff for the Geek' %}
+
+{% block nav %}
+{% if feed.tags %}
+<li class="dropdown" id="menutags">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="menutags#">Tags <b class="caret"></b></a>
+  <ul class="dropdown-menu">
+    {% for t in feed.tags %}
+      <li><a href="/tag/{{t}}/">{{t}}</a></li>
+    {% endfor %}
+  </ul>
+</li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div id="feed" class="span12 multicol">
+    {% if feed.items %}
+    <ul class="">
+    {% for i in feed.items %}
+      <li><div class="well">
+        <div class="title">
+          <h3><a href="{{i.link}}">{{i.title}}</a></h3>
+        </div>
+        <div class="image preview">
+          <a href="{{i.link}}"><img src="{{i.imageurl}}" alt="{{i.title}}"></a>
+        </div>
+        <div class="info clearfix">
+          <p>{{i.description|truncate(190)|urlize}}</p>
+        </div>
+        <div class="tags">
+          {% for tag in i.tags %}
+            <a href="/tag/{{tag}}/"><span class="label"><i class="icon-tag"></i> {{tag}}</span></a>
+          {% endfor %}
+        </div>
+      </div></li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No results found, try another search.</p>
+  {% endif %}
+  </div>
+</div>
+
+{% if feed.total > feed.limit %}
+<div class="row">
+  <div class="span12">
+    <ul class="pager">
+      <li{% if feed.page == 1 %} class="disabled"{% endif %}><a href="#" class="prev">&larr; Previous</a></li>
+      <li{% if feed.total <= feed.page * feed.limit %} class="disabled"{% endif %}><a href="#" class="next">Next &rarr;</a></li>
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block bodyscript %}{% endblock %}
