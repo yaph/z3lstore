@@ -8,7 +8,7 @@ app.config.from_pyfile('store.cfg', silent=True)
 z3l = Z3L(app.config['STORE_ID'])
 
 def get_params(params):
-    default_params = {'ps': 9, 'pg': 1}
+    default_params = {'bg': 'F5F5F5', 'ps': 9, 'pg': 1}
     for k,v in request.args.items():
         default_params[k] = v
     default_params.update(params)

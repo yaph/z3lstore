@@ -8,6 +8,8 @@ http://www.zazzle.com/sell/developers/rss
 
 import feedparser
 import urllib
+from cache import cachedrequest
+
 
 class Z3L:
     params = {
@@ -34,6 +36,7 @@ class Z3L:
         self.store_url = self.store_url % store_id
 
 
+    @cachedrequest('cache/zazzle', 86400)
     def get_products(self, params):
         self.params.update(params)
 
@@ -73,6 +76,9 @@ class Result(object):
         self.items = []
         self.tags = []
 
+
 class Item(object):
     def __init__(self):
         self.tags = []
+
+
