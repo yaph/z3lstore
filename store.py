@@ -5,12 +5,9 @@ from lib.z3l import Z3L
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('store.cfg', silent=True)
 
-z3l = Z3L(app.config['STORE_ID'])
-default_params = {'bg': 'F5F5F5', 'ps': 9, 'pg': 1}
 
-
-# read about @app.before_request
 def get_params(params):
+    default_params = {'bg': 'F5F5F5', 'ps': 9, 'pg': 1}
     for k,v in request.args.items():
         default_params[k] = v
     default_params.update(params)
@@ -18,7 +15,7 @@ def get_params(params):
 
 
 def get_result(params):
-    result = z3l.get_products(get_params(params))
+    result = Z3L(app.config['STORE_ID']).get_products(get_params(params))
     if len(result): return result
     abort(404)
 
