@@ -8,6 +8,5 @@ TODOs
 -----
 
 * Add about page
-* Caching to save Web service requests, use cachecore
 
 .. _`Geeksta Store`: http://store.geeksta.net/

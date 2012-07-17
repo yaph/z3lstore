@@ -76,6 +76,9 @@ class Result(object):
         self.items = []
         self.tags = []
 
+    def __len__(self):
+        return len(self.items)
+
 
 class Item(object):
     def __init__(self):

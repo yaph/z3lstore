@@ -1,18 +1,26 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, render_template
+from flask import Flask, abort, request, render_template
 from lib.z3l import Z3L
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('store.cfg', silent=True)
 
 z3l = Z3L(app.config['STORE_ID'])
+default_params = {'bg': 'F5F5F5', 'ps': 9, 'pg': 1}
 
+
+# read about @app.before_request
 def get_params(params):
-    default_params = {'bg': 'F5F5F5', 'ps': 9, 'pg': 1}
     for k,v in request.args.items():
         default_params[k] = v
     default_params.update(params)
     return default_params
+
+
+def get_result(params):
+    result = z3l.get_products(get_params(params))
+    if len(result): return result
+    abort(404)
 
 
 @app.errorhandler(404)
@@ -22,17 +30,17 @@ def page_not_found(error):
 
 @app.route('/')
 def home():
-    return render_template('home.html', feed=z3l.get_products(get_params({'qs': ''})))
+    return render_template('home.html', feed=get_result({'qs': ''}))
 
 
 @app.route('/tag/<tag>/')
 def tag(tag=None):
-    return render_template('tag.html', feed=z3l.get_products(get_params({'qs': tag})))
+    return render_template('tag.html', feed=get_result({'qs': tag}))
 
 
 @app.route('/search/<search>')
 def search(search=None):
-    return render_template('search.html', feed=z3l.get_products(get_params({'qs': search})))
+    return render_template('search.html', feed=get_result({'qs': search}))
 
 
 @app.route('/about/')
@@ -41,6 +49,6 @@ def about():
 
 
 if __name__ == '__main__':
-    app.run()
-#    app.run(debug=True)
+#    app.run()
+    app.run(debug=True)
 

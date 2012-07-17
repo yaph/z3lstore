@@ -15,7 +15,7 @@ $(function(){
     url.removeSearch('pg');
     if (1 != pg) url.addSearch('pg', pg);
 
-    document.location.href = url.href();
+    document.location.href = url.normalize();
   });
 
   $('form.search').submit(function(e){
