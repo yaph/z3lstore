@@ -33,7 +33,7 @@
         </div>
         <div class="tags">
           {% for tag in i.tags %}
-            <a href="{{ url_for('tag', tag=tag) }}/"><span class="label"><i class="icon-tag"></i> {{tag}}</span></a>
+            <a href="{{ url_for('tag', tag=tag) }}"><span class="label"><i class="icon-tag"></i> {{tag}}</span></a>
           {% endfor %}
         </div>
       </div></li>
