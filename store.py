@@ -1,23 +1,17 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, abort, request, render_template
-from lib.z3l import Z3L
+from flask import Flask, abort, request, render_template, flash
+from models import db, User, Feed, FeedItem
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('store.cfg', silent=True)
 
 
 def get_params(params):
-    default_params = {'bg': 'F5F5F5', 'ps': 9, 'pg': 1}
+    default_params = {}
     for k,v in request.args.items():
         default_params[k] = v
     default_params.update(params)
     return default_params
-
-
-def get_result(params):
-    result = Z3L(app.config['STORE_ID']).get_products(get_params(params))
-    if len(result): return result
-    abort(404)
 
 
 @app.errorhandler(404)
@@ -27,25 +21,52 @@ def page_not_found(error):
 
 @app.route('/')
 def home():
-    return render_template('home.html', feed=get_result({'qs': ''}))
+    return render_template('home.html')
 
 
-@app.route('/tag/<tag>/')
-def tag(tag=None):
-    return render_template('tag.html', feed=get_result({'qs': tag}))
+@app.route('/user/<username>')
+def user_show(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('user_show.html', user=user)
 
 
-@app.route('/search/<search>')
-def search(search=None):
-    return render_template('search.html', feed=get_result({'qs': search}))
+@app.route('/feed/all/')
+def feed_all():
+    return render_template('feed_all.html',
+        feeds=Feed.query.order_by(Feed.created.desc()).all()
+    )
 
 
-@app.route('/about/')
-def about():
-    return render_template('about.html')
+@app.route('/feed/add/', methods=['GET', 'POST'])
+def feed_add():
+    if request.method == 'POST':
+        if not request.form['url']:
+            flash('URL is required', 'error')
+        elif not request.form['type']:
+            flash('Type is required', 'error')
+        else:
+            feed = Feed(request.form['url'], request.form['type'])
+            db.session.add(feed)
+            db.session.commit()
+            flash(u'Feed was successfully created')
+            return redirect(url_for('feed_all'))
+    return render_template('feed_add.html')
+
+
+@app.route('/feed/update', methods=['POST'])
+def feed_update():
+    pass
+
+
+@app.route('/feed/delete/<int:id>')
+def feed_delete():
+#    if DELETE
+#    db.session.delete(feed)
+#    db.session.commit()
+    return render_template('feed_delete.html')
 
 
 if __name__ == '__main__':
-    app.run()
-#    app.run(debug=True)
+#    app.run()
+    app.run(debug=True)
 
