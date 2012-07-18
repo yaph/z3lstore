@@ -2,6 +2,3 @@ flup
 flask
 feedparser
 cachecore
-Flask-SQLAlchemy
-Flask-WTF
-Flask-OAuth
