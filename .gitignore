@@ -1,5 +1,6 @@
 deploy.sh
 cache/
+instance/
 
 *.py[co]
 
