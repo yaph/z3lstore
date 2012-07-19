@@ -8,9 +8,13 @@ app.config.from_pyfile('store.cfg', silent=True)
 
 def get_params(params):
     default_params = {'bg': 'F5F5F5', 'ps': 9, 'pg': 1}
-    for k,v in request.args.items():
-        default_params[k] = v
+#    for k,v in request.args.items():
+#        default_params[k] = v
+    print default_params
+    default_params.update(request.args.items())
+    print default_params
     default_params.update(params)
+    print default_params
     return default_params
 
 
