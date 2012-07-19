@@ -8,7 +8,6 @@ http://www.zazzle.com/sell/developers/rss
 
 import feedparser
 import urllib
-from cache import cachedrequest
 
 
 class Z3L:
@@ -36,9 +35,9 @@ class Z3L:
         self.store_url = self.store_url % store_id
 
 
-    @cachedrequest('cache/zazzle', 86400)
     def get_products(self, params):
-        self.params.update(params)
+        # only consider known params
+        self.params.update([(k, v) for k, v in params.items() if k in self.params])
 
         # filter empty params, encode remaining ones and request feed
         feed = feedparser.parse('%s?%s' % (self.store_url, urllib.urlencode(

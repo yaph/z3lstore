@@ -16,7 +16,7 @@ class cachedrequest(object):
         @functools.wraps(fn)
         def decorated(*args, **kwargs):
             if len(args) > 0:
-                cid = str(args[1])
+                cid = str(args[0])
                 result = self.cache.get(cid)
                 if result: return result
             result = fn(*args)

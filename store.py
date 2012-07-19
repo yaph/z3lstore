@@ -1,25 +1,26 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, abort, request, render_template
 from lib.z3l import Z3L
+from lib.cache import cachedrequest
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('store.cfg', silent=True)
 
 
-def get_params(params):
-    default_params = {'bg': 'F5F5F5', 'ps': 9, 'pg': 1}
-#    for k,v in request.args.items():
-#        default_params[k] = v
-    print default_params
+@cachedrequest(app.config['CACHE_DIR'], app.config['CACHE_LIFETIME'])
+def request_zazzle(params):
+    return Z3L(app.config['STORE_ID']).get_products(params)
+
+
+def get_params(params=None):
+    default_params = {'bg': 'F5F5F5', 'ps': 9, 'pg': 1, 'qs': ''}
     default_params.update(request.args.items())
-    print default_params
-    default_params.update(params)
-    print default_params
+    if params is not None: default_params.update(params)
     return default_params
 
 
-def get_result(params):
-    result = Z3L(app.config['STORE_ID']).get_products(get_params(params))
+def get_result(params=None):
+    result = request_zazzle(get_params(params))
     if len(result): return result
     abort(404)
 
@@ -31,7 +32,7 @@ def page_not_found(error):
 
 @app.route('/')
 def home():
-    return render_template('home.html', feed=get_result({'qs': ''}))
+    return render_template('home.html', feed=get_result())
 
 
 @app.route('/tag/<tag>/')

@@ -11,12 +11,12 @@ import unittest
 
 
 class StoreTestCase(unittest.TestCase):
+    """Test cases for the store application."""
 
     def setUp(self):
         store.app.config['TESTING'] = True
         self.app = store.app.test_client()
 
-    # testing functions
     def test_search(self):
         response = self.app.get('/search/geek')
         assert 200 == response.status_code
