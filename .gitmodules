@@ -1,0 +1,3 @@
+[submodule "static/vendor/jquery-typewriter"]
+	path = static/vendor/jquery-typewriter
+	url = git://github.com/chadselph/jquery-typewriter.git

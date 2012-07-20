@@ -1,0 +1,36 @@
+/*
+adapted from from
+http://cssdeck.com/item/437/plain-text-editor-shell
+*/
+
+body {
+background: #222;
+}
+.typewrite {
+display:none;
+padding-left: 10px;
+}
+.shell {
+  min-height:350px;
+  padding: 5px 10px 10px 15px;
+  outline: none;
+  font-family: "Courier new", "american typewriter";
+  font-weight: 500;
+  font-size: 1.6em;
+  line-height: 2;
+  letter-spacing: 1.2px;
+  color: #58bf1d;
+
+  /* CSS3 properties */
+  -webkit-box-shadow:inset 15px 0 0 rgba(255,255,255, .05);
+  -moz-box-shadow:inset 15px 0 0 rgba(255,255,255, .05);
+  -ms-box-shadow:inset 15px 0 0 rgba(255,255,255, .05);
+  -o-box-shadow:inset 15px 0 0 rgba(255,255,255, .05);
+  box-shadow:inset 15px 0 0 rgba(255,255,255, .05);
+
+  -webkit-text-shadow: 0px 0px 3px rgba(88,191,29,0.5);
+  -moz-text-shadow: 0px 0px 3px rgba(88,191,29,0.5);
+  -ms-text-shadow: 0px 0px 3px rgba(88,191,29,0.5);
+  -o-text-shadow: 0px 0px 3px rgba(88,191,29,0.5);
+  text-shadow: 0px 0px 3px rgba(88,191,29,0.5);
+}

@@ -2,8 +2,26 @@
 
 {% set title = 'An Error Occurred' %}
 
+{% block styles %}
+<link href="/static/css/shell.css" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 
-Error
+<div class="row">
+  <div class="span12 shell">
+    <p class="typewrite">You didn't mean to come here, did you?</p>
+    <p class="typewrite">If you look for a shirt, use the search form at the top.</p>
+    <p class="typewrite">If you just did that before you arrived here, no products matched your search query.</p>
+    <p class="typewrite">You can browse through available products from the <a href="/">start page</a>.</p>
+    <p class="typewrite">If you think this is a bug with the software, you can <a href="https://github.com/yaph/z3lstore/issues">create an issue</a>.</p>
+    <p class="typewrite">Before, please make sure the issue hasn't been reported already.</p>
+  </div>
+</div>
 
+{% endblock %}
+
+{% block bodyscript %}
+<script src="/static/vendor/jquery-typewriter/jquerytypewriter.js"></script>
+<script>$(function(){$('.typewrite').typewrite({'delay':80});});</script>
 {% endblock %}
