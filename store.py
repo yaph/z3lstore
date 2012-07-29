@@ -13,7 +13,7 @@ def request_zazzle(params):
 
 
 def get_params(params=None):
-    default_params = {'bg': 'F5F5F5', 'ps': 9, 'pg': 1, 'qs': ''}
+    default_params = {'bg': 'F5F5F5', 'ps': 9, 'pg': 1, 'qs': '', 'st': 'popularity', 'sp': 30}
     default_params.update(request.args.items())
     if params is not None: default_params.update(params)
     return default_params
