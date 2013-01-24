@@ -1,7 +1,7 @@
 README
 ======
 
-A flask app to display products from a Zazzle store, for an example see `Geeksta Store`_.
+A flask application to display products from a Zazzle store, for an example see `Geeksta Store`_.
 
 
 TODOs
