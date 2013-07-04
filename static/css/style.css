@@ -28,6 +28,11 @@ line-height:1.5em;
 margin-top:.1em;
 }
 
+#feed .title h3 {
+height:2.2em;
+overflow:hidden;
+}
+
 .multicol li {
 float:left;
 width:32%;

@@ -13,15 +13,23 @@ def request_zazzle(params):
 
 
 def get_params(params=None):
-    default_params = {'bg': 'F5F5F5', 'ps': 9, 'pg': 1, 'qs': '', 'st': 'popularity', 'sp': 30}
-    default_params.update(request.args.items())
-    if params is not None: default_params.update(params)
+    default_params = {
+        'bg': 'F5F5F5',
+        'ps': 9,
+        'pg': 1,
+        'qs': '',
+        'st': 'popularity',
+        'sp': 30}
+    default_params.update(list(request.args.items()))
+    if params is not None:
+        default_params.update(params)
     return default_params
 
 
 def get_result(params=None):
     result = request_zazzle(get_params(params))
-    if len(result): return result
+    if len(result):
+        return result
     abort(404)
 
 
@@ -52,4 +60,3 @@ def about():
 
 if __name__ == '__main__':
     app.run()
-

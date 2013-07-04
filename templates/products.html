@@ -29,7 +29,7 @@
           <a href="{{i.link}}"><img src="{{i.imageurl}}" alt="{{i.title}}"></a>
         </div>
         <div class="info clearfix">
-          <p>{{i.description|truncate(190)|urlize}}</p>
+          <p>{{i.description|truncate(190)|urlize(30)}}</p>
         </div>
         <div class="tags">
           {% for tag in i.tags %}
