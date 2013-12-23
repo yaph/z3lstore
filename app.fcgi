@@ -1,4 +1,4 @@
-#!/home1/webhosu0/python/bin/python
+#!/home1/webhosu0/.virtualenvs/z3lstore/bin/python
 from flup.server.fcgi import WSGIServer
 from store import app
 
