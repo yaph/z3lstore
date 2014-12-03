@@ -4,55 +4,54 @@
 
 {% block nav %}
 {% if feed.tags %}
-<li class="dropdown" id="menutags">
-  <a class="dropdown-toggle" data-toggle="dropdown" href="menutags#">Tags <b class="caret"></b></a>
-  <ul class="dropdown-menu">
-    {% for t in feed.tags %}
-      <li><a href="{{ url_for('tag', tag=t) }}">{{t}}</a></li>
-    {% endfor %}
-  </ul>
-</li>
+<ul class="nav navbar-nav">
+    <li class="dropdown" id="menutags">
+        <a href="#menutags" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tags <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+        {% for t in feed.tags %}
+            <li><a href="{{ url_for('tag', tag=t) }}">{{t}}</a></li>
+        {% endfor %}
+        </ul>
+    </li>
+</ul>
 {% endif %}
 {% endblock %}
 
 {% block content %}
-<div class="row">
-  <div id="feed" class="span12 multicol">
-    {% if feed.items %}
-    <ul class="">
-    {% for i in feed.items %}
-      <li><div class="well">
-        <div class="title">
-          <h3><a href="{{i.link}}">{{i.title}}</a></h3>
+
+{% if feed.items %}
+
+{% for i in feed.items %}
+{% if loop.first or loop.index0 is divisibleby(3) %}<div class="row">{% endif %}
+    <div class="col-md-4 panel"><div class="panel panel-default">
+        <div class="panel-heading">
+            <h3><a href="{{i.link}}">{{i.title}}</a></h3>
         </div>
-        <div class="image preview">
-          <a href="{{i.link}}"><img src="{{i.imageurl}}" alt="{{i.title}}"></a>
+        <div class="panel-body">
+            <a href="{{i.link}}"><img src="{{i.imageurl}}" alt="{{i.title}}" class="pull-left img-thumbnail img-responsive"></a>
+            <p>{{i.description|truncate(190)|urlize(30)}}</p>
         </div>
-        <div class="info clearfix">
-          <p>{{i.description|truncate(190)|urlize(30)}}</p>
+        <div class="panel-footer">
+            {% for tag in i.tags[:4] %}
+                <a href="{{ url_for('tag', tag=tag) }}"><i class="fa fa-tag"></i> {{tag}}</a>{% if not loop.last %} - {% endif %}
+            {% endfor %}
         </div>
-        <div class="tags">
-          {% for tag in i.tags[:4] %}
-            <a href="{{ url_for('tag', tag=tag) }}"><span class="label"><i class="icon-tag"></i> {{tag}}</span></a>
-          {% endfor %}
-        </div>
-      </div></li>
-    {% endfor %}
-    </ul>
-  {% else %}
+    </div></div>
+{% if loop.last or loop.index is divisibleby(3) %}</div>{% endif %}
+{% endfor %}
+
+{% else %}
     <p>No results found, try another search.</p>
-  {% endif %}
-  </div>
-</div>
+{% endif %}
 
 {% if feed.total > feed.limit %}
 <div class="row">
-  <div class="span12">
-    <ul class="pager">
-      <li{% if feed.page == 1 %} class="disabled"{% endif %}><a href="#" class="prev">&larr; Previous</a></li>
-      <li{% if feed.total <= feed.page * feed.limit %} class="disabled"{% endif %}><a href="#" class="next">Next &rarr;</a></li>
-    </ul>
-  </div>
+    <div class="col-md-12">
+        <ul class="pager">
+            <li{% if feed.page == 1 %} class="disabled"{% endif %}><a href="#" class="prev">&larr; Previous</a></li>
+            <li{% if feed.total <= feed.page * feed.limit %} class="disabled"{% endif %}><a href="#" class="next">Next &rarr;</a></li>
+        </ul>
+    </div>
 </div>
 {% endif %}
 

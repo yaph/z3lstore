@@ -9,8 +9,8 @@
       <meta name="description" content="{{description}}">
     {% endif %}
     <link rel="canonical" href="{{base_url}}{{url}}"/>
-    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/vendor/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/static/css/style.css{{version}}" rel="stylesheet">
     {% block styles %}{% endblock %}
     <!--[if lt IE 9]>
@@ -27,37 +27,42 @@
     {% endif %}
   </head>
   <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button"class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="/">Geeksta Store</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <form class="navbar-search pull-left search">
-                <input type="text" class="search-query span2" placeholder="Search">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">Geeksta Store</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse">
+              <form class="navbar-form navbar-left search" role="search">
+                  <div class="form-group">
+                      <input type="text" class="search-query form-control" placeholder="Search">
+                  </div>
+                  <button type="submit" class="btn btn-default">Submit</button>
               </form>
               {% if feed %}
-                <li><a>{{feed.total}} Product{% if 1 != feed.total %}s{% endif %}</a></li>
+              <ul class="nav navbar-nav">
+                  <li><a>{{feed.total}} Product{% if 1 != feed.total %}s{% endif %}</a></li>
+              </ul>
               {% endif %}
-              <!--<li class=""><a href="/about/">About</a></li>-->
               {% block nav %}{% endblock %}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+          </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
 
     <div class="container">
       {% block content %}{% endblock %}
     </div>
 
     <div class="container">
-      <div class="row"><div class="span12">
+      <div class="row"><div class="col-md-12">
         <footer>
           <p>Visit the <a href="http://www.zazzle.com/geeksta*?tc=238355915198956003">Geeksta Store on Zazzle</a>.</p>
           <div><a href="http://www.zazzle.com/?rf=238355915198956003"><img src="/static/img/zazzle.gif" width="141" height="57" alt="In association with Zazzle.com"></a></div>
@@ -65,8 +70,8 @@
       </div></div>
     </div>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="/static/vendor/URI.js/URI.min.js"></script>
     <script src="/static/js/script.js{{version}}"></script>
     {% block bodyscript %}{% endblock %}

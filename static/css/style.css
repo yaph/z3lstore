@@ -1,48 +1,28 @@
 body {
-position: relative;
 padding-top: 70px;
-background-position: 0 40px;
 }
 
 h3 {
 font-size:1.1em;
 }
 
-#feed ul {
-padding:0;
-margin:0;
-}
-
-#feed .image.preview {
-float:left;
-width:33%;
-margin-right:1em;
-}
-
-#feed .info a {
-margin-bottom:1.2em;
-line-height:1.5em;
-}
-
-#feed .tags {
-margin-top:.1em;
-}
-
-#feed .title h3 {
-height:2.2em;
-overflow:hidden;
-}
-
-.multicol li {
-float:left;
-width:32%;
-list-style:none;
-margin-right:1%;
-}
-.multicol li .well {
-height:165px;
-}
-
 footer {
 text-align:center;
+}
+
+.panel-heading h3 {
+    width: 100%;
+    overflow: hidden;
+    height: 1.1em;
+    padding: 0;
+    margin: 0;
+}
+
+.panel-body p {
+    font-size: .9em;
+}
+
+.panel-body img {
+    width: 35%;
+    margin-right: 1em;
 }
