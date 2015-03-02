@@ -38,8 +38,9 @@ class Z3L:
             [(k, v) for k, v in list(params.items()) if k in self.params])
 
         # filter empty params, encode remaining ones and request feed
-        feed = feedparser.parse('%s?%s' % (self.store_url, urllib.urlencode(
-            filter(lambda x: True if x[1] else False, self.params.items()))))
+        url = '%s?%s' % (self.store_url, urllib.urlencode(
+            filter(lambda x: True if x[1] else False, self.params.items())))
+        feed = feedparser.parse(url)
 
         if 'status' in feed and 200 == feed['status'] and 'feed' in feed and 'entries' in feed:
 
